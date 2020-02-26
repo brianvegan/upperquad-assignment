@@ -33,6 +33,8 @@
                     <div class="cloud2"></div>
                     <div class="cloud3"></div>
                     <div class="cloud4"></div>
+                    <div class="cloud5"></div>
+                    <div class="cloud6"></div>
                     <div class="content-block">
                         <div class="fromTop title">
                             <h1>UPPERQUAD</h1>
@@ -43,15 +45,29 @@
                     </div>
                 </section>
                 <section class="content-section detect-viewport symmetric-center-children two" id="weatherReport">
-                    <h1>THIS IS CONTENT</h1>
+                    <div class="preloading-prompt on">
+                        <h1>FORECAST IMMINENT</h1>    
+                    </div>
+                    <div class="data-layout">
+                        <div class="weather-visual">
+                            <canvas id="current-condition" width="128" height="128"></canvas>
+                        </div>
+                        <h2 class="weather-node current-summary">Currently <span></span></h2>
+                        <h3 class="weather-node current-temperature symmetric-center-children"><img src="img/temperature-icon.png" alt="" /><span></span></h3>
+                        <h4 class="weather-node current-wind-speed symmetric-center-children"><span></span> <img src="img/wind-icon.png" alt="" /></h4>
+                        <h4 class="weather-node current-humidity symmetric-center-children"><img src="img/humidity-icon.png" alt="" /><span></span></h4>
+                    </div>
                 </section>
-                <section class="content-section detect-viewport three" id="sfAnotherMoneyShot"></section>
+                <section class="content-section detect-viewport three" id="sfAnotherMoneyShot">
+                    <div class="spanify">UPPERQUAD</div>
+                </section>
                 <section class="content-section detect-viewport four" id="morphShapes"></section>
                 <section class="content-section detect-viewport five" id="confettiParty"></section>
                 <section class="content-section detect-viewport six" id="bouncingBall"></section>
             </div>
         </main>
         <script type="text/javascript" src="script/layout.js"></script>
+        <script type="text/javascript" src="script/skycon.js"></script>
         <script type="text/javascript" src="script/weather.js"></script>
         <script type="text/javascript" src="script/controller.js"></script>
     </body>

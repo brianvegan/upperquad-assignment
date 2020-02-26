@@ -15,6 +15,7 @@ const sequence = function(target, show) {
                 "cloud2destination",
                 "cloud3destination",
                 "cloud4destination",
+                "cloud5destination",
                 "toCenter"
             ];
         break;
