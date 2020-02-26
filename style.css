@@ -1,0 +1,241 @@
+/** CORE **/
+
+
+html, body {
+    margin: 0; padding: 0; overflow-x:hidden;
+    font-family:'Superior Black';
+}
+
+@font-face {
+    font-family:'Superior Black';
+    src:url("../font/SuperiorTitle-Black.woff") format("woff")
+}
+
+body {
+    margin: 0;
+}
+
+h1 {
+    font-size: 5em;
+    margin: 3px;
+}
+
+.full-viewport {
+    width: 100vw;
+    height: 100vh;
+}
+
+.content-block {
+    color: white;
+}
+
+.content-section {
+    height: 500px;
+    width: 100vw;
+}
+.symmetric-center-children {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+
+
+/** CONTENT **/
+
+
+.hero-image, .one, .two, .three, .four, .five, .six {
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+.one {
+    filter: blur(4px) brightness(1.4) contrast(2) grayscale(0%);
+    transition: filter .4s;
+    transition-timing-function: ease-out;
+    position: relative;
+}
+
+.two {
+
+}
+
+.three {
+    filter: blur(4px) brightness(1.4) contrast(2)  grayscale(100%);
+    transition: filter .4s;
+    transition-timing-function: ease-out;
+}
+
+.four {
+    background-color: #f22116;
+}
+
+.five {
+    background-color: #040403;
+}
+
+.six {
+    background-color: #45e297;
+}
+
+
+/** SECTION ONE **/
+
+
+
+#sfMoneyShot {
+    background-color: #84fdff;
+    background-image: url("../img/sf.jpg");
+    overflow: hidden;
+}
+
+
+.one.is-visible {
+    transition: filter .4s;
+    filter: blur(0px) brightness(1.0) contrast(1.0) grayscale(0);
+    transition-timing-function: ease-in;
+}
+
+
+.cloud1, .cloud2, .cloud3 {
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
+    display: block;
+    position: absolute;
+}
+
+.cloud1 {
+    background-image: url("../img/cloud1.png");
+    width: 257px;
+    height: 39px;
+    top: -10px;
+    left: 0px;
+}
+
+.cloud1destination .cloud1 {
+    width: 224px;
+    height: 120px;
+    top: -53px;
+    left: 100vw;
+    transition: left 640s;
+    transition-timing-function: linear;
+}
+
+.cloud2 {
+    background-image: url("../img/cloud2.png");
+    top: 0;
+    left: 50%;
+    width: 224px;
+    height: 120px;
+}
+
+.cloud2destination .cloud2 {
+    width: 224px;
+    height: 120px;
+    left: 100vw;
+    transition: left 360s;
+    transition-timing-function: linear;
+}
+/* FOG LARGE */
+.cloud3 {
+    width: 4000px;
+    height: 750px;
+    right:-2000px;
+    top: 50%;
+
+    background-image: url("../img/fog.png");
+    background-repeat: repeat-x;
+
+    filter: brightness(1.0) contrast(2) invert(1);
+}
+
+.cloud3destination  .cloud3 {
+    width: 4000px;
+    height: 500px;
+    right: 2000px;
+    top: 50%;
+
+
+    transition: right 310s;
+    transition-timing-function: linear;
+
+}
+/* FOG SMALL*/
+.cloud4 {
+    width: 4000px;
+    height: 500px;
+    right:1000px;
+    top: 50%;
+
+    background-image: url("../img/fog.png");
+    background-repeat: repeat-x;
+
+    filter: brightness(1.0) contrast(2) invert(0.9);
+
+    animation:fog 1s ease-in-out infinite alternate;
+}
+
+.cloud4destination  .cloud4 {
+    width: 4000px;
+    height: 900px;
+    right: 3000px;
+    top: 20%;
+
+
+    transition: right 440s;
+    transition-timing-function: linear;
+
+}
+
+.one .content-block .tagline {
+    padding-left: 15px;
+}
+
+.fromTop {
+    position: absolute;
+    top: -15%;
+    left: 10%;
+}
+
+.toCenter .fromTop.title {
+    transition: top  .5s;
+    transition-delay: .25s;
+    transition-timing-function: ease-in-out;
+    top: 15%;
+    left: 10%;
+}
+
+.toCenter .fromTop.tagline {
+    transition: top  .5s;
+    transition-delay: .25s;
+    transition-timing-function: ease-in-out;
+    top: 30%;
+    left: 10%;
+}
+
+.hero-image {
+    background-image: url("../img/bg.png");
+}
+
+
+/** SECTION TWO **/
+
+#sfAnotherMoneyShot {
+    background-color: #84fdff;
+    background-image: url("../img/sf3.jpg");
+}
+
+.three.is-visible {
+    transition: filter .4s;
+    filter: blur(0px) brightness(1.0) contrast(1.0) grayscale(0);
+    transition-timing-function: ease-in;
+}
+
+
+
+
+
+
