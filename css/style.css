@@ -195,6 +195,12 @@ main {
     transition-timing-function: ease-in;
 }
 
+.hero-content-block h1.title {
+    filter: opacity(0.5);
+}
+
+
+/* CLOUDS */
 
 .cloud1, .cloud2, .cloud3, .cloud5 {
     background-size: contain;
@@ -208,20 +214,19 @@ main {
     background-image: url("../img/cloud1.png");
     width: 257px;
     height: 39px;
-    top: -10px;
+    top: -43px;
     left: 0px;
     -webkit-transform: none;
     transform: none;
-}
 }
 
 .cloud1destination .cloud1 {
     width: 224px;
     height: 120px;
-    -webkit-transform: translateX(1000%);
-    transform: translateX(1000%);
+    -webkit-transform: translateX(100%);
+    transform: translateX(100%);
 
-	transition: transform 10s linear;
+	transition: transform 300s linear;
 }
 
 .cloud2 {
@@ -337,6 +342,7 @@ main {
     transition: top  .5s;
     transition-delay: .25s;
     transition-timing-function: ease-in-out;
+    opacity: 0.85;
     top: 15%;
     left: 10%;
 }
@@ -468,6 +474,7 @@ main {
 #sfAnotherMoneyShot {
     background-color: #84fdff;
     background-image: url("../img/sf3.jpg");
+    color: #fff;
 }
 
 .three.is-visible {
@@ -478,6 +485,59 @@ main {
 
 
 
+.three div.found {
+    display: block;
+    position: absolute;
+    top: 20%;
+    color: rgb(18, 70, 182);
+    max-width: 25%;
+}
+
+.three .done  {
+    display: none;
+    opacity: 0;
+}
+
+.three .done.on  {
+    display: block;
+    opacity: 1;
+    transition: opacity 1s ease-in;
+}
+
+.three h1.spanify-container {
+    opacity: 1;
+    transition: opacity .75s ease-out;
+}
+
+.three h1.spanify-container.fade {
+    opacity: 0;
+    transition: opacity .75s ease-out;    
+}
+
+.three .spanify-container span {
+    cursor: pointer;
+    color: rgb(255, 255, 255);
+    font-size: 75px;
+    top: 0;
+    left: 0;
+    transition: color .5s ease-out, font-size .1 ease;
+}
+
+.three .spanify-container span.over {
+    color: rgb(1, 106, 204);
+    font-size: 80px; 
+    transition: color .5s ease-in, font-size .2s ease;
+
+}
+
+.three .spanify-container span.flyaway {
+    font-size: 0px; 
+    transition: font-size .5s ease-out;
+
+}
+
+
+/** SECTION FOUR **/
 
 
 
