@@ -5,7 +5,7 @@ class Spanify {
         this.ancestor = this.original.parentNode;
         this.resultConatiner = this.ancestor.querySelector('.found');
         this.gameOver = this.ancestor.querySelector('.done');
-        this.wordList = ['upper','quad','peru','pad','per','pud','rad','up','ad'];
+        this.wordList = ['upper','quad','peru','pad','per','rad','up','ad'];
         this.discoveredWords = [];
         this.factory = null; 
         this.childCount = 0;
@@ -53,7 +53,6 @@ class Spanify {
 
         if(this.wordList.indexOf(isWord.toLowerCase())>-1 && 
            this.discoveredWords.indexOf(isWord)==-1) {
-            console.log('new word');
             return isWord; 
         }
         return false;
