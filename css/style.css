@@ -620,3 +620,8 @@ main {
     width: var(--element-percentage);
     padding-top: var(--element-percentage);
   }
+
+  .six polygon.triangle {
+    mix-blend-mode: multiply;
+    height: 10%;
+  }
