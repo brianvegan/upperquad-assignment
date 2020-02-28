@@ -1,88 +1,109 @@
 class BounceParty {
     constructor(root, numOnStage) {
-        this.root = document.querySelector(root);
-        this.canvas = this.root.querySelector('.ballContainer');
-        this.ctx = this.canvas.getContext('2d');
-        this.width = this.canvas.width = window.innerWidth;
-        this.height = this.canvas.height = window.innerHeight;
-        this.balls = []; // <Ball>[]
-        this.totalBalls = numOnStage ? numOnStage : 1; // initialize with param or 1 default
-        this.shouldRender = true;
-        this.classWatcher = new ClassWatcher(this.root, 'is-visible', () => { this.setRenderOn() }, () => { this.setRenderOff() });
-
+        this.root = document.querySelector(root)
+        this.canvas = this.root.querySelector('.ballContainer')
+        this.ctx = this.canvas.getContext('2d')
+        this.width = this.canvas.width = window.innerWidth
+        this.height = this.canvas.height = window.innerHeight
+        this.balls = [] // <Ball>[]
+        this.subscribers = []
+        this.totalBalls = numOnStage ? numOnStage : 1 // initialize with param or 1 default
+        this.shouldRender = true
+        this.classWatcher = new ClassWatcher(this.root, 'is-visible', () => { this.setRenderOn() }, () => { this.setRenderOff() })
+        this.canvas.onclick = (e) => { this.addOne(e) }
+    }
+    addOne(event) {
+        const size = Ball.random(5,25)
+        const ball = new Ball(this.ctx, 
+                              this,
+                              this.width, 
+                              this.height, 
+                              null, 
+                              size, 
+                              [event.clientX-size,event.clientY-size])
+        this.balls.push(ball)
     }
     setRenderOn() {
-        console.log('on')
         this.shouldRender = true;
-        this.loop();
+        this.render()
     }
     setRenderOff() {
-        console.log('off')
-        this.shouldRender = false;
+        this.shouldRender = false
     }
-    collisionDetect() {
-        for (j = 0; j < this.balls.length; j++) {
-            if ( (!(this.x === this.balls[j].x && this.y === this.balls[j].y && this.velX === this.balls[j].velX && this.velY === this.balls[j].velY)) ) {
-                var dx = this.x - this.balls[j].x;
-                var dy = this.y - this.balls[j].y;
-                var distance = Math.sqrt(dx * dx + dy * dy);
-
-                if (distance < this.size + this.balls[j].size) {
-                    this.balls[j].color = this.color = 'rgb(' + random(0, 255) + ',' + random(0, 255) + ',' + random(0, 255) +')';
-                }
+    addListener(listener) {
+        this.subscribers.push(listener)
+    }
+    emit(event) {
+        this.subscribers.forEach((listener)=>{
+            if(listener.type == event.type) {
+                listener.callback.heard(event);
             }
-        }
+        });
     }
-    loop() {
+    render() {
         if(this.shouldRender) {
-            this.ctx.fillStyle = 'rgba(0, 0, 0, 0.25)';
-            this.ctx.fillRect(0, 0, this.width, this.height);
+            // create slightly opaque bg and fill to size of viewport
+            this.ctx.fillStyle = 'rgba(0, 0, 0, 0.25)'
+            this.ctx.fillRect(0, 0, this.width, this.height)
             
-            // initializer, puts 25 balls on the stage
+            // initializer, puts actors on the stage if needed
             while (this.balls.length < this.totalBalls) {
-              var ball = new Ball(this.ctx, this.width, this.height);
-              this.balls.push(ball);
+                const ball = new Ball(this.ctx, this, this.width, this.height)
+                this.balls.push(ball)
             }
             
+            // each frame, update view
             for (let i = 0; i < this.balls.length; i++) {
-              this.balls[i].draw();
-              this.balls[i].update();
+                this.balls[i].draw()
+                this.balls[i].update()
             }
     
-            window.requestAnimationFrame(() => this.loop());
+            window.requestAnimationFrame(() => this.render())
         }
     }
 }
 
 class Ball {
-    constructor(ctx, canvasWidth, canvasHeight) {
+    constructor(ctx, parent, canvasWidth, canvasHeight, maxVelocity, ballSize, plotXY) {
         if(!ctx) {
-            throw Error('cannot initialize without rendering context');
+            throw Error('cannot initialize without rendering context')
         }
-        this.ctx = ctx;
-        this.height = canvasHeight;
-        this.width = canvasWidth;
+        maxVelocity = maxVelocity ? maxVelocity : 8; // else reasonable default
+        this.ctx = ctx
+        this.parent = parent;
+        this.height = canvasHeight
+        this.width = canvasWidth
+
         // random starting position
-        this.x = this.random(0, this.width);
-        this.y = this.random(0, this.height);
+        if(plotXY) {
+            this.x = plotXY[0]
+            this.y = plotXY[1]
+        } else {
+            this.x = Ball.random(0, this.width)
+            this.y = Ball.random(0, this.height)
+        }
+
         // random velocity, tuned for the stage
-        this.velX = this.random(-7, 7);
-        this.velY = this.random(-7, 7);
+        this.velX = Ball.random(-1 * maxVelocity, maxVelocity)
+        this.velY = Ball.random(-1 * maxVelocity, maxVelocity)
         // any random color from three primary of color
-        this.color = 'rgb(' + this.random(0, 255) + ',' + this.random(0, 255) + ',' + this.random(0, 255) +')';
+        this.color = 'rgb(' + Ball.random(0, 255) + ',' + Ball.random(0, 255) + ',' + Ball.random(0, 255) +')'
         // random size
-        this.size = this.random(10, 20);
+        this.size =  (ballSize) ? ballSize : Ball.random(5, 25)
     }
-    random(min,max) {
-        // classic random 
+    emit(event) {
+        this.parent.emit({type:'bottom',from:this});
+    }
+    static random(min,max) {
+        // classic rando :D
         var num = Math.floor(Math.random()*(max-min)) + min;
         return num;
     }
     draw() {
-        // draw ball
+        // draw ball 
         this.ctx.beginPath();
         this.ctx.fillStyle = this.color;
-        this.ctx.arc(this.x, this.y, this.size, 0, 2 * Math.PI); // give it a spherical radius
+        this.ctx.arc(this.x, this.y, this.size, 0, 2 * Math.PI); // give it a spherical arc
         this.ctx.fill();
     }   
     update() {
@@ -95,12 +116,13 @@ class Ball {
             this.velX = -(this.velX);
         }
         
-        // hit top horizontal boundary
+        // hit bottom horizontal boundary
         if ((this.y + this.size) >= this.height) {
             this.velY = -(this.velY);
+            this.emit({type: 'bottom', from: this})
         }
         
-        // hit bottom horizontal boundary
+        // hit top horizontal boundary
         if ((this.y - this.size) <= 0) {
             this.velY = -(this.velY);
         }
@@ -111,5 +133,3 @@ class Ball {
     }
 }
 
-const bouncy = new BounceParty('#bouncingBall', 1);
-bouncy.loop();
