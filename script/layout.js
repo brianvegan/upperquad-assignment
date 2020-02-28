@@ -10,6 +10,7 @@ const sequence = function(target, show) {
     let classList
     switch(target.id) {
         case 'sfMoneyShot':
+            // bind subsequent animations via classes
             classList = [
                 "cloud1destination",
                 "cloud2destination",
@@ -20,6 +21,7 @@ const sequence = function(target, show) {
             ];
         break
         case 'weatherReport':
+            // steer the ship programatically 
             if(!hasPermission) {
                 const prompt = document.querySelector('.geo')
                 if(show) {
@@ -28,6 +30,9 @@ const sequence = function(target, show) {
                     prompt.classList.remove('on')
                 }
             }
+        break
+        case 'morphShapes':
+            shapeMorph.trigger();
         break
     }
     if(!classList) {
@@ -50,12 +55,12 @@ const sequence = function(target, show) {
 const onScreenMain = function(entries) {
     entries.forEach( entry => {
         if (entry.isIntersecting) {
-            // per the assignments requirement
+            // toggle can work but it also can create anomalies when other parts of the script are calling toggle
             entry.target.classList.add("is-visible")
+            // keep track of the 
             isLeavingSet[entry.target.id] = true
             sequence(entry.target, true)
         } else if (isLeavingSet[entry.target.id]) {
-            // per the assignments requirement
             entry.target.classList.remove("is-visible")
             isLeavingSet[entry.target.id] = false
             sequence(entry.target, false)
@@ -64,8 +69,11 @@ const onScreenMain = function(entries) {
 }
 
 let observerFinal = new IntersectionObserver(onScreenMain, onScreenMainOptions)
+
+// snag all whom needs transition effects when on screen
 let targets = document.querySelectorAll('.detect-viewport')
 
 targets.forEach(target=>{
+    // bind
     observerFinal.observe(target)
 })

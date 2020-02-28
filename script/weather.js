@@ -1,46 +1,10 @@
-
-// class Weather {
-//     constructor(options) {
-        
-//         this.apiKey = options.apiKey;
-//         this.prompt = document.querySelector(options.prompt);
-//         this.accept = document.querySelector(options.prompt+ '.accept');
-//         this.decline = document.querySelector(options.prompt+ '.decline');
-//         this.connectionUrl = 'https://api.darksky.net/forecast/%APIKEY%/%LAT%,%LNG%';
-//         this.latitude = null;
-//         this.longitude = null;
-
-//         this.handlePermission();
-//     }
-
-//     async connect() {
-//         console.log(this.connectionUrl);
-//     }
-
-//     revealPosition(event) {
-//         console.log(this);
-//     }
-//     positionDenied() {
-//         result.state = 'granted';
-//         console.log('positionDenied');
-//     }
-
-//     handlePermission() {
-
-//         const geoSettings = {
-
-//         };
-//     }
-    
-// }
-
 let hasPermission = false;
 
-function closeGeoFindMe(event) {
+function getGeoClose(event) {
     document.querySelector('.geo').classList.remove('on');
 }
 
-function geoFindMe(event) {
+function getGeo(event) {
     const prompt = document.querySelector('.geo');
     const master = document.querySelector('#weatherReport');
     const proxyUrl = 'proxy.php';
@@ -121,9 +85,9 @@ function geoFindMe(event) {
   navigator.permissions.query({name:'geolocation'}).then(function(result) {
     if (result.state == 'granted') {
       hasPermission = true;
-      geoFindMe();
+      getGeo();
     }
   });
 
-document.querySelector('.geo .allow').addEventListener('click', geoFindMe);
-document.querySelector('.geo .decline').addEventListener('click', closeGeoFindMe);
+document.querySelector('.geo .allow').addEventListener('click', getGeo);
+document.querySelector('.geo .decline').addEventListener('click', getGeoClose);
