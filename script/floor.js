@@ -1,20 +1,34 @@
 class Floor {
     constructor(root) {
         this.root = document.querySelector(root)
+        this.colorRecorder = document.createElement('div')
+        this.colorRecorder.classList.add('colorRecorder')
+        this.root.appendChild(this.colorRecorder)
+        this.lastColor;
     }
     heard(caller) {
-        // var self = this;
-        // const el = document.createElement('div')
-        // const before = document.createElement('div')
-        // const after = document.createElement('div')
+        // save it
+        this.lastColor = caller.from.color
+        // new record
+        const newSquare = new ColorRecord({color:caller.from.color})
         
-        // el.classList.add('pyro')
-        // before.classList.add('before')
-        // after.classList.add('after')
+        this.colorRecorder.insertBefore(newSquare, this.colorRecorder.childNodes[0])
 
-        // el.appendChild(before)
-        // el.appendChild(after)
+        //this.colorRecorder.appendChild(newSquare)
+        
+        newSquare.classList.add('grow')
 
+        // primary effect
         this.root.setAttribute('style','background-color:'+caller.from.color)
+        
+    }
+}
+
+class ColorRecord {
+    constructor(options) {
+        const record = document.createElement('div')
+        record.setAttribute('style', 'cursor: pointer; background-color:'+options.color)
+        record.classList.add('colorRecord')
+        return record
     }
 }

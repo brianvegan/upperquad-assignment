@@ -14,13 +14,21 @@ class BounceParty {
     }
     addOne(event) {
         const size = Ball.random(5,25)
+
+//console.table([event.clientY,event.offsetY,event.pageY]);
+//console.table([event.clientY + event.offsetY]);
+console.log(this.root.getBoundingClientRect().top);
+
         const ball = new Ball(this.ctx, 
                               this,
                               this.width, 
                               this.height, 
                               null, 
                               size, 
-                              [event.clientX-size,event.clientY-size])
+                              [
+                                  event.clientX,
+                                  event.clientY - this.root.getBoundingClientRect().top
+                              ])
         this.balls.push(ball)
     }
     setRenderOn() {

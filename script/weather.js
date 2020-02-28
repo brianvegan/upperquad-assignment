@@ -118,12 +118,12 @@ function geoFindMe(event) {
     }
   }
 
-//   navigator.permissions.query({name:'geolocation'}).then(function(result) {
-//     if (result.state == 'granted') {
-//       hasPermission = true;
-//       geoFindMe();
-//     }
-//   });
+  navigator.permissions.query({name:'geolocation'}).then(function(result) {
+    if (result.state == 'granted') {
+      hasPermission = true;
+      geoFindMe();
+    }
+  });
 
-//   document.querySelector('.geo .allow').addEventListener('click', geoFindMe);
+document.querySelector('.geo .allow').addEventListener('click', geoFindMe);
 document.querySelector('.geo .decline').addEventListener('click', closeGeoFindMe);
