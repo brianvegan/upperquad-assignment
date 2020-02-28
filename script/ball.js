@@ -14,11 +14,6 @@ class BounceParty {
     }
     addOne(event) {
         const size = Ball.random(5,25)
-
-//console.table([event.clientY,event.offsetY,event.pageY]);
-//console.table([event.clientY + event.offsetY]);
-console.log(this.root.getBoundingClientRect().top);
-
         const ball = new Ball(this.ctx, 
                               this,
                               this.width, 
@@ -27,7 +22,7 @@ console.log(this.root.getBoundingClientRect().top);
                               size, 
                               [
                                   event.clientX,
-                                  event.clientY - this.root.getBoundingClientRect().top
+                                  event.clientY, // not perfect, need right offset
                               ])
         this.balls.push(ball)
     }
@@ -77,10 +72,10 @@ class Ball {
             throw Error('cannot initialize without rendering context')
         }
         maxVelocity = maxVelocity ? maxVelocity : 8; // else reasonable default
-        this.ctx = ctx
+        this.ctx    = ctx
         this.parent = parent;
         this.height = canvasHeight
-        this.width = canvasWidth
+        this.width  = canvasWidth
 
         // random starting position
         if(plotXY) {
